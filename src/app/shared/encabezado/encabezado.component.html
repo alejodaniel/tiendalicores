@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="{{ imagenUrl }}" alt="Imagen" style="width: 100px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Descuentos</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control m-3" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-warning text-light m-3" type="submit">Buscar</button>
+      </form>
+      <!-- Carrito de compras -->
+      <div class="dropdown">
+        <button class="btn btn-warning text-light m-3" type="button" data-bs-toggle="modal" data-bs-target="#cartModal">
+          Carrito {{carritoProductos.length}}
+        </button>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">{{ 'Carrito de Compras' | uppercase | slice: 0:50}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Iterar sobre los productos del carrito y mostrarlos -->
+              <ul class="list-group">
+                <li *ngFor="let producto of carritoProductos"
+                  class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ producto.nombre | capitalizar  }} con valor de: ${{ producto.precio }}
+                  <button class="btn btn-sm btn-danger" (click)="eliminarProducto(producto.id)">Eliminar</button>
+                </li>
+                <!-- Mostrar mensaje si el carrito está vacío -->
+                <li *ngIf="carritoProductos.length === 0" class="list-group-item">Carrito vacío, sin algo que calme las penas</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
